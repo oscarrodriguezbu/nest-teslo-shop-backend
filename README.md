@@ -99,6 +99,10 @@ http://localhost:3000/api/seed
 ![alt text](screenshots/image23.png)  
 
 
+![alt text](screenshots/image24.png)  
+
+
+
 
 
 

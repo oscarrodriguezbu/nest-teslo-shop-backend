@@ -8,8 +8,8 @@ import { RoleProtected } from './role-protected.decorator';
 export function Auth(...roles: ValidRoles[]) {
 
   return applyDecorators(
-    RoleProtected(...roles), // no se coloca el @
-    UseGuards( AuthGuard(), UserRoleGuard ), // no se coloca el @
+    RoleProtected(...roles),
+    UseGuards( AuthGuard(), UserRoleGuard ),
   );
 
 }

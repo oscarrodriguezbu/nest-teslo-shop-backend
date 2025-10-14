@@ -6,7 +6,8 @@ import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'products' })
 export class Product {
-    @ApiProperty({ // ApiProperty es para ayudar en la documentacion del swagger
+
+    @ApiProperty({
         example: 'cd533345-f1f3-48c9-a62e-7dc2da50c8f8',
         description: 'Product ID',
         uniqueItems: true
@@ -28,7 +29,7 @@ export class Product {
         example: 0,
         description: 'Product price',
     })
-    @Column('float', {
+    @Column('float',{
         default: 0
     })
     price: number;
@@ -65,10 +66,10 @@ export class Product {
     stock: number;
 
     @ApiProperty({
-        example: ['M', 'XL', 'XXL'],
+        example: ['M','XL','XXL'],
         description: 'Product sizes',
     })
-    @Column('text', {
+    @Column('text',{
         array: true
     })
     sizes: string[];
@@ -89,7 +90,7 @@ export class Product {
 
     // images
     @ApiProperty()
-    @OneToMany( // es como una llave foranea que apunta a la entidad de las imagenes
+    @OneToMany(
         () => ProductImage,
         (productImage) => productImage.product,
         { cascade: true, eager: true }
@@ -98,29 +99,34 @@ export class Product {
 
 
     @ManyToOne(
-        () => User, //entidad
-        (user) => user.product,
+        () => User,
+        ( user ) => user.product,
         { eager: true }
     )
     user: User
 
+
     @BeforeInsert()
     checkSlugInsert() {
-        if (!this.slug) {
+
+        if ( !this.slug ) {
             this.slug = this.title;
         }
 
         this.slug = this.slug
             .toLowerCase()
-            .replaceAll(' ', '_')
-            .replaceAll("'", '')
+            .replaceAll(' ','_')
+            .replaceAll("'",'')
+
     }
 
     @BeforeUpdate()
     checkSlugUpdate() {
         this.slug = this.slug
             .toLowerCase()
-            .replaceAll(' ', '_')
-            .replaceAll("'", '')
+            .replaceAll(' ','_')
+            .replaceAll("'",'')
     }
+
+
 }

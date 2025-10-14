@@ -16,37 +16,40 @@ import { ValidRoles } from './interfaces';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
+
+
 
   @Post('register')
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return this.authService.create(createUserDto);
+  createUser(@Body() createUserDto: CreateUserDto ) {
+    return this.authService.create( createUserDto );
   }
 
   @Post('login')
-  loginUser(@Body() loginUserDto: LoginUserDto) {
-    return this.authService.login(loginUserDto);
+  loginUser(@Body() loginUserDto: LoginUserDto ) {
+    return this.authService.login( loginUserDto );
   }
 
-  @Get('check-status') //revalidar el token
+  @Get('check-status')
   @Auth()
   checkAuthStatus(
     @GetUser() user: User
   ) {
-    return this.authService.checkAuthStatus(user);
+    return this.authService.checkAuthStatus( user );
   }
 
+
   @Get('private')
-  @UseGuards(AuthGuard()) // prevenir o permitir acceso
+  @UseGuards( AuthGuard() )
   testingPrivateRoute(
     @Req() request: Express.Request,
-    @GetUser() user: User, //aca no se manda ningun argumento al decorador  //? GetUser decorador personalizado para traer algo como el request
-    @GetUser('email') userEmail: string, //? GetUser decorador personalizado para traer algo como el request
-
-    @RawHeaders() rawHeaders: string[], //? otro decorador personalizado
-    @Headers() headers: IncomingHttpHeaders, // decorador que regresa los headers
+    @GetUser() user: User,
+    @GetUser('email') userEmail: string,
+    
+    @RawHeaders() rawHeaders: string[],
+    @Headers() headers: IncomingHttpHeaders,
   ) {
-    // console.log({user: request.user});
+
 
     return {
       ok: true,
@@ -58,28 +61,35 @@ export class AuthController {
     }
   }
 
-  // @SetMetadata('roles', ['admin','super-user']) // esto no evalua la informacion que devuelve
 
-  @Get('private2') // solo para fines educativos
-  @RoleProtected(ValidRoles.superUser, ValidRoles.admin) //? estabkece los roles de manera controlada
-  @UseGuards(AuthGuard(), UserRoleGuard) //? UserRoleGuard guard personalizado
+  // @SetMetadata('roles', ['admin','super-user'])
+
+  @Get('private2')
+  @RoleProtected( ValidRoles.superUser, ValidRoles.admin )
+  @UseGuards( AuthGuard(), UserRoleGuard )
   privateRoute2(
     @GetUser() user: User
   ) {
+
     return {
       ok: true,
       user
     }
   }
 
-  @Get('private3') // mejor opcion que la opcion 2
-  @Auth(ValidRoles.admin) //? decorador personalizado Auth
+
+  @Get('private3')
+  @Auth( ValidRoles.admin )
   privateRoute3(
     @GetUser() user: User
   ) {
+
     return {
       ok: true,
       user
     }
   }
+
+
+
 }

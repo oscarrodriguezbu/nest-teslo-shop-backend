@@ -2,9 +2,9 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGenerated
 import { Product } from '../../products/entities';
 
 
-@Entity('users') //este es el nombre de la tabla en la bd
+@Entity('users')
 export class User {
-
+    
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -33,20 +33,20 @@ export class User {
     roles: string[];
 
     @OneToMany(
-        () => Product, //entidad
-        (product) => product.user
+        () => Product,
+        ( product ) => product.user
     )
     product: Product;
 
 
-    @BeforeInsert() // son como los triggers de las base de datos
+    @BeforeInsert()
     checkFieldsBeforeInsert() {
         this.email = this.email.toLowerCase().trim();
     }
 
-    @BeforeUpdate() // son como los triggers de las base de datos
+    @BeforeUpdate()
     checkFieldsBeforeUpdate() {
-        this.checkFieldsBeforeInsert();
+        this.checkFieldsBeforeInsert();   
     }
 
 }

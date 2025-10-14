@@ -10,6 +10,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  app.enableCors();
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -17,7 +19,7 @@ async function bootstrap() {
     })
   );
 
-  const config = new DocumentBuilder() // para lo del swagger
+  const config = new DocumentBuilder()
     .setTitle('Teslo RESTFul API')
     .setDescription('Teslo shop endpoints')
     .setVersion('1.0')

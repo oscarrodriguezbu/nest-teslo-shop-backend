@@ -14,7 +14,7 @@
 docker-compose up -d
 ```
 
-6. Levantar: ```yarn start:dev```
+6. Levantar: ```yarn start:dev``` o ```start:dev```
 
 7. Ejecutar SEED 
 ```
@@ -28,4 +28,11 @@ http://localhost:3000/api/seed
 10. Para revisar el tema de los websockets hay que correr el proyecto `https://github.com/oscarrodriguezbu/nest-teslo-shop-front` con `yarn run dev` e ingresar al `http://localhost:5173/` entonces abrir dos pestañas con diferentes usuarios
 
 
-
+### Usuarios para iniciar sesión:
+  email: 'test1@google.com',
+  password:  'Abc123',
+  roles: ['admin']
+  
+  email: 'test2@google.com',
+  password:'Abc123',
+  roles: ['user','super']
